@@ -77,6 +77,8 @@
     </body>
     <script>
 
+        // mouse handling
+
         document.body.addEventListener('mousemove', ({ clientX, clientY }) => {
             const { width, height } = body.getBoundingClientRect();
             const rotateY = (clientX - width / 2) / width * 10;
@@ -84,13 +86,35 @@
             document.getElementById('container').style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
         });
 
+        // device rotation
+
         let rotateX = 0;
         let rotateY = 0;
+
+        let resetTimer = 0;
+        let savedX = 0;
+        let savedY = 0;
+        let setReset = (rotX, rotY) => {
+            if (rotX == savedX && rotY == savedY) {
+                clearTimeout(resetTimer);
+                // reset every 10s
+                resetTimer = setTimeout(() => {
+                    rotateX = 0;
+                    rotateY = 0;
+                }, 10000);
+            }
+            savedX = rotX;
+            savedY = rotY;
+        }
+
         window.addEventListener('devicemotion', ({ rotationRate, interval }) => {
             rotateX += rotationRate.alpha * interval;
-            rotateY += rotationRate.beta * interval;
+            rotateY += - rotationRate.beta * interval;
             document.getElementById('container').style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            resetTimer(Math.floor(rotateX), Math.floor(rotateY));
         }, true);
+
+        // bg color
 
         setBgColor = () => {
             const root = document.documentElement;
