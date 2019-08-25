@@ -77,6 +77,22 @@
     </body>
     <script>
 
+        const isSafari = !!navigator.userAgent. match(/Version\/[\d\. ]+.*Safari/);
+        const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+        const motionAdapter = isSafari && iOS ? ({ rotationRate: {
+            alpha, beta, gamma
+        }, interval }) => {
+            return {
+                interval: interval * 1000,
+                rotationRate: {
+                    alpha: gamma,
+                    beta,
+                    gamma: alpha
+                }
+            }
+        } : a => a;
+
         // mouse handling
 
         document.body.addEventListener('mousemove', ({ clientX, clientY }) => {
@@ -107,9 +123,10 @@
             savedY = rotY;
         }
 
-        window.addEventListener('devicemotion', ({ rotationRate, interval }) => {
-            rotateX += rotationRate.alpha * interval;
-            rotateY += - rotationRate.beta * interval;
+        window.addEventListener('devicemotion', e => {
+            const { rotationRate, interval } = motionAdapter(e);
+            rotateX += rotationRate.gamma * interval / 1000;
+            rotateY += - rotationRate.beta * interval / 1000;
             document.getElementById('container').style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
             setReset(Math.floor(rotateX), Math.floor(rotateY));
         }, true);
