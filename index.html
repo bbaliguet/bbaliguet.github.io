@@ -76,9 +76,8 @@
         </div>
     </body>
     <script>
-        const body = document.body;
-
-        body.addEventListener('mousemove', ({ clientX, clientY }) => {
+        
+        document.body.addEventListener('mousemove', ({ clientX, clientY }) => {
             const { width, height } = body.getBoundingClientRect();
             const rotateY = (clientX - width / 2) / width * 10;
             const rotateX = (height / 2 - clientY ) / height * 10;
@@ -87,7 +86,7 @@
 
         let rotateX = 0;
         let rotateY = 0;
-        body.addEventListener('devicemotion', ({ rotationRate, interval }) => {
+        window.addEventListener('devicemotion', ({ rotationRate, interval }) => {
             rotateY += rotationRate.gamma * 1000 / interval;
             rotateX += rotationRate.beta * 1000 / interval;
             document.getElementById('container').style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
