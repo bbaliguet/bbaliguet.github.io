@@ -95,7 +95,7 @@
         let savedX = 0;
         let savedY = 0;
         let setReset = (rotX, rotY) => {
-            if (rotX == savedX && rotY == savedY) {
+            if (rotX != savedX || rotY != savedY) {
                 clearTimeout(resetTimer);
                 // reset every 10s
                 resetTimer = setTimeout(() => {
