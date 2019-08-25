@@ -27,7 +27,6 @@
                 perspective-origin: center;
                 transform-style: preserve-3d;
                 perspective: 400px;
-
                 color: #666;
                 background-color: hsl(var(--hsl-color-rotate), 100%, 92%);
             }
@@ -47,6 +46,7 @@
                 padding: 20px;
                 text-align: center;
                 border: solid 1px #ccc;
+                transition: transform 1s;
             }
 
             @media (prefers-color-scheme: dark) {
@@ -111,7 +111,7 @@
             rotateX += rotationRate.alpha * interval;
             rotateY += - rotationRate.beta * interval;
             document.getElementById('container').style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-            resetTimer(Math.floor(rotateX), Math.floor(rotateY));
+            setReset(Math.floor(rotateX), Math.floor(rotateY));
         }, true);
 
         // bg color
