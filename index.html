@@ -1,32 +1,104 @@
-<head>
-    <title>Benoît Baliguet</title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            font-weight: 100;
-            font-family: sans-serif;
-            color: #666;
-            background-color: azure;
-            transition: background-color 5s;
+<html lang="en-US">
+    <head>
+        <title>Benoît Baliguet</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="Benoît Baliguet">
+        <meta name="description" content="Lightweigth CV of Benoît Baliguet hosted on GitHub pages.">
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+        <style>
+
+            :root {
+                --hsl-color-rotate: 180;
+            }
+
+            body {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                font-weight: 100;
+                font-family: sans-serif;
+                transition: background-color 5s;
+                margin: 0;
+                perspective-origin: center;
+                transform-style: preserve-3d;
+                perspective: 400px;
+
+                color: #666;
+                background-color: hsl(var(--hsl-color-rotate), 100%, 92%);
+            }
+
+            h1 {
+                margin: 0 0 10px 0;
+                font-weight: 100;
+            }
+            h2 {
+                margin: 0;
+                font-weight: 200;
+            }
+            a, a:active, a:visited {
+                color: #222;
+            }
+            #container {
+                padding: 20px;
+                text-align: center;
+                border: solid 1px #ccc;
+            }
+
+            @media (prefers-color-scheme: dark) {
+                body {
+                    color: #666;
+                    background-color: hsl(var(--hsl-color-rotate), 100%, 8%);
+                }
+
+                a, a:active, a:visited {
+                    color: #999;
+                }
+
+                #container {
+                    padding: 20px;
+                    text-align: center;
+                    border: solid 1px #333;
+                }
+            }
+
+        </style>
+    </head>
+    <body>
+        <div id='container'>
+            <h1>Benoît Baliguet</h1>
+            <h2>Software Architect</h2>
+            <p>You can find me on <a href="https://github.com/bbaliguet" title="GitHub">GitHub</a> and <a href="https://www.linkedin.com/in/benoitbaliguet/" title="LinkedIn">LinkedIn</a>.</p>
+        </div>
+    </body>
+    <script>
+        const body = document.body;
+
+        body.addEventListener('mousemove', ({ clientX, clientY }) => {
+            const { width, height } = body.getBoundingClientRect();
+            const rotateY = (clientX - width / 2) / width * 10;
+            const rotateX = (height / 2 - clientY ) / height * 10;
+            document.getElementById('container').style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+
+        let rotateX = 0;
+        let rotateY = 0;
+        body.addEventListener('devicemotion', ({ rotationRate, interval }) => {
+            rotateY += rotationRate.gamma * 1000 / interval;
+            rotateX += rotationRate.beta * 1000 / interval;
+            document.getElementById('container').style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        }, true);
+
+        setBgColor = () => {
+            const root = document.documentElement;
+            const rotate = Math.floor(Math.random() * 360);
+            root.style.setProperty('--hsl-color-rotate', rotate);
         }
-        h1 {
-            margin: 0 0 10px 0;
-            font-weight: 100;
-        }
-        h2 {
-            margin: 0;
-            font-weight: 200;
-        }
-        a, a:active, a:visited {
-            color: #222;
-        }
-    </style>
-</head>
-<body>
-    <h1>Benoît Baliguet</h1>
-    <h2>Full-stack Team Leader</h2>
-    <p>You can find me on <a href="https://github.com/bbaliguet" title="GitHub">GitHub</a> and <a href="https://www.linkedin.com/in/benoitbaliguet/" title="LinkedIn">LinkedIn</a>.</p>
-</body>
+
+        setInterval(setBgColor, 10000);
+    </script>
+</html>
