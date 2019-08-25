@@ -87,8 +87,8 @@
         let rotateX = 0;
         let rotateY = 0;
         window.addEventListener('devicemotion', ({ rotationRate, interval }) => {
-            rotateY += rotationRate.gamma / interval;
-            rotateX += rotationRate.beta / interval;
+            rotateY += rotationRate.gamma * interval / 1000;
+            rotateX += rotationRate.beta * interval / 1000;
             document.getElementById('container').style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
         }, true);
 
