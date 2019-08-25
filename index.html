@@ -46,7 +46,7 @@
                 padding: 20px;
                 text-align: center;
                 border: solid 1px #ccc;
-                transition: transform 1s;
+                transition: transform 0.1s;
             }
 
             @media (prefers-color-scheme: dark) {
@@ -80,7 +80,7 @@
         // mouse handling
 
         document.body.addEventListener('mousemove', ({ clientX, clientY }) => {
-            const { width, height } = body.getBoundingClientRect();
+            const { width, height } = document.body.getBoundingClientRect();
             const rotateY = (clientX - width / 2) / width * 10;
             const rotateX = (height / 2 - clientY ) / height * 10;
             document.getElementById('container').style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
