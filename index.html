@@ -45,24 +45,22 @@
             #container {
                 padding: 20px;
                 text-align: center;
-                border: solid 1px #ccc;
+                border: solid 3px #ccc;
                 transition: transform 0.1s;
             }
 
             @media (prefers-color-scheme: dark) {
                 body {
-                    color: #666;
-                    background-color: hsl(var(--hsl-color-rotate), 100%, 8%);
+                    color: #ddd;
+                    background-color: hsl(var(--hsl-color-rotate), 100%, 15%);
                 }
 
                 a, a:active, a:visited {
-                    color: #999;
+                    color: #fff;
                 }
 
                 #container {
-                    padding: 20px;
-                    text-align: center;
-                    border: solid 1px #333;
+                    border-color: #ddd;
                 }
             }
 
@@ -111,11 +109,11 @@
         let setReset = (rotX, rotY) => {
             if (rotX != savedX || rotY != savedY) {
                 clearTimeout(resetTimer);
-                // reset every 10s
+                // reset every 3s
                 resetTimer = setTimeout(() => {
                     rotateX = 0;
                     rotateY = 0;
-                }, 10000);
+                }, 3000);
             }
             savedX = rotX;
             savedY = rotY;
